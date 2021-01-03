@@ -25,7 +25,7 @@ class BotHandler:
          met='sendchataction'
          para={'chat_id':chat_id ,'action' : 'typing'}
          respons=requests.post(self.api_url + met, para)
-         par={'chat_id': chat_id, 'animation': 'CAACAgUAAxkBAAIQLl994ZQ_yW7Qr0xLrpxPGBrMPm-9AAIRAAOmQMEsxAMuLenxHYgbBA', 'parse_mode': 'HTML'}
+         par={'chat_id': chat_id, 'animation': 'CAACAgUAAxkBAAM7X_BN2xGcqwzbL19d3gu8RjbGIzQAAhYAA6ZAwSzL-hWf0besVx4E', 'parse_mode': 'HTML'}
          meth='sendAnimation'
          res = requests.post(self.api_url + meth, par)
          key={'inline_keyboard':[[{'text': 'Fees payment','url':'https://annamalaiuniversity.ac.in/studport/epayment_rgl_tfee.php?mode=oNln' }]]}
