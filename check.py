@@ -111,7 +111,7 @@ def table():
   g = day()
   k = gettime()
   print(k)
-  if d() == 'mon' or d()=='tue' or ( c[0]=='1' and ( c[1]=='1' or c[1]=='2')) :
+  if d() == 'Mon' or d()=='Tue' or ( c[0]=='1' and ( c[1]=='1' or c[1]=='2')) :
     kkk=0
   else :
     kkk=1
