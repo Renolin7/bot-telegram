@@ -360,7 +360,7 @@ def main():
                                         new_offset = first_update_id + 1
                   if first_chat_text == '/ftt' :
                                 flag=0  
-                                niloner_bot.send_photo(first_chat_id,m_id, 'AgACAgUAAxkBAANhX_Bb5Tebi-hNa7yyfBOHOM17I6kAAvaqMRv0moFXXS_EiaakSzinRSRtdAADAQADAgADeQADUDICAAEeBA')
+                                niloner_bot.send_photo(first_chat_id,m_id, 'AgACAgUAAxkBAAIaJ1_yKLh3KEENayD5RDRiPYTTmf16AAKWqjEbGKGRVyKL3mSnTUrrdwGxbnQAAwEAAwIAA3kAA8YJAQABHgQ')
                                 new_offset = first_update_id + 1
                   if '/ch_notify' in first_chat_text and first_chat_id in ID :
                               flag=0
