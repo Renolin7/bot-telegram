@@ -1,0 +1,383 @@
+from os import environ
+#import schedule
+from callback import *
+import json
+from Time import *
+import requests
+import datetime
+from check import *
+from links import *
+import random
+ani=['CAACAgIAAxkBAAPNX_FjEvAOHFl1ipOcP7Oo2qr27TgAAu0AA1KJkSOT7yOd4uOqQx4E','CAACAgEAAxkBAAPKX_Fi9AXNschR9N2xNnLU5t0NEqkAAi4AA54znB93DjAJcyTsUx4E','CAACAgEAAxkBAAPHX_Fi18jJqlQHOsdfra_EYXErfeYAAkcAA54znB_fIrGA-USU8B4E','CAACAgIAAxkBAAPEX_FiqKmZRauRR2kI8s-wChi7aDMAAhoBAAJSiZEjxmJqaGGJYv0eBA','CAACAgIAAxkBAAPBX_FieALvjvswd51WuJk8DZo03CwAAoIFAAI_lcwK_P7QoRk9cLEeBA','CAACAgIAAxkBAAO-X_FiNmodkbZZ5RxbwaOuxmw_sBIAAhkDAAJtsEIDzXEElsP4YKUeBA','CAACAgIAAxkBAAO7X_FiCOoHEMfVS3QpoJuhSEOAKZAAAhQAA36EwwgkgZD-xR2Nex4E','CAACAgUAAxkBAAPbX3cWYLOlxfEYYsWb8IKFTVwpuFoAApIBAALoFSciftxS2UkI1IobBA','CAACAgUAAxkBAAPLX3cQ_75Ct09Mtpz1cf1mUSh4py8AAosCAAJ5XhciU-n9Mxtky70bBA','CAACAgUAAxkBAAPKX3cQjjCL_B1y_DmIwme-3tXxqBAAAmoCAAJ5XhciTfXzxzK074kbBA','CAACAgEAAxkBAAPJX3cP5hHEvaiLovbwA_NrGkDK9DYAAhgBAAI4DoIRW2biLrLrCn0bBA','CAACAgUAAxkBAAIGC192tgcAAYx9rNj9oluH0EaiUfTQmAACggEAAugVJyLWkLvD3xo6OBsE','CAACAgIAAxkBAAIGDV92tiyxNHjGdmL2nRMR7iPTVZBNAAJHAwACtXHaBjV7c9kAAYsdpBsE','CAACAgEAAxkBAAIGD192tknJG2aYoMyIp6z8TB9MQxRAAAJICgACv4yQBHUk1z4LX5nUGwQ','CAACAgIAAxkBAAIGEV92tmiajEMIuUrSpAoUGB1WSeF9AAKBAAPBnGAM6PbLODBd3jcbBA','CAACAgIAAxkBAAIGE192tpHLj8uDtrdFr7vN2WflsDVlAAJ-AAOWn4wOcYMRnixctuUbBA','CAACAgIAAxkBAAIGFV92trKOjqUs6r8ewX1nZE26yoLUAAJhAAMK_MIFpvt8LfVaOa4bBA','CAACAgEAAxkBAAIGF192ttsoH2v0oHXdUqdggeDYVtT2AAJgCgACv4yQBLW3hUMCnp-QGwQ','CAACAgIAAxkBAAIGGV92tzS4WyxEdXzlDcKtabFy7xZjAAJUAwACtXHaBkKqUvDfaej1GwQ','CAACAgIAAxkBAAIGG192t2ywB6YRujxfhpj2yg2vBuErAAJnAAOvxlEayZCJx70BigIbBA','CAACAgIAAxkBAAIGHV92uMwDmIaA45NiLAhx1_oucQWnAAIeAANZu_wlsg0_9KjFvagbBA','CAACAgIAAxkBAAIGH192uSsdPrTFfm0ShdtUQnJ3_RvRAAIvAAP7g6klITd39eao4jYbBA','CAACAgIAAxkBAAIGIV92uUFn1Du_4zewI0HmD7M-vW1eAAI4AAP7g6klOy_Bp3Iw890bBA','CAACAgIAAxkBAAIGI192uaHX5J51qhtdMXrtxBXEXYRpAAKtAwAC8n6CDGSNpbcqwW--GwQ']
+class BotHandler:
+    def __init__(self, token):
+            self.token = token
+            self.api_url = "https://api.telegram.org/bot{}/".format(token)
+
+
+    def get_updates(self, offset=0, timeout=30):
+        method = 'getUpdates'
+        params = {'timeout': timeout, 'offset': offset}
+        resp = requests.get(self.api_url + method, params)
+        result_json = resp.json()['result']
+        return result_json
+    def send_notify(self,chat_id,m_id,text):
+         met='sendchataction'
+         para={'chat_id':chat_id ,'action' : 'typing'}
+         respons=requests.post(self.api_url + met, para)
+         par={'chat_id': chat_id, 'animation': 'CAACAgUAAxkBAAIQLl994ZQ_yW7Qr0xLrpxPGBrMPm-9AAIRAAOmQMEsxAMuLenxHYgbBA', 'parse_mode': 'HTML'}
+         meth='sendAnimation'
+         res = requests.post(self.api_url + meth, par)
+         key={'inline_keyboard':[[{'text': 'Fees payment','url':'https://annamalaiuniversity.ac.in/studport/epayment_rgl_tfee.php?mode=oNln' }]]}
+         keyys=json.dumps(key)
+         params = {'chat_id': chat_id, 'text': text,'parse_mode':'HTML','reply_markup':keyys}
+         method = 'sendMessage'
+         resp = requests.post(self.api_url + method, params)
+         return resp
+    def send_greet(text):
+        params = {'chat_id': '-327423546','text': text, 'parse_mode': 'HTML'}
+        method = 'sendMessage'
+        resp = requests.post(self.api_url + method, params)
+        
+        return resp
+    def send_help(self,chat_id):
+         text='Hey! My name is Syntax_error. I am an online class link management bot, here to help you get the class links and time table! PM me on @niloner_bot\n\nFor further queries use the buttons below.\n\n\nThis bot was created by @Renolin'
+         key={'inline_keyboard':[[{'text': 'Notification','callback_data':'1'}],[{'text': 'Current class','callback_data': '2'},{'text': 'Next class','callback_data':'3'}],[{'text': 'Theory classes','callback_data': '4'}],[{'text': 'Lab classes','callback_data':'5'}],[{'text': 'Seminar classes','callback_data': '6'}],[{'text': 'Source code','url':'https://github.com/Renolin7/telegram-bot'}]]}
+         keyys=json.dumps(key)
+         params = {'chat_id': chat_id, 'text': text,'parse_mode':'HTML','reply_markup':keyys}
+         method = 'sendMessage'
+         resp = requests.post(self.api_url + method, params)
+         return resp
+    def send_message(self, chat_id,m_id,text):
+        t_day=d()
+        u=random.randint(0,23)
+        met='sendchataction'
+        para={'chat_id':chat_id ,'action' : 'typing'}
+        respons=requests.post(self.api_url + met, para)
+        if 'holiday' in text.lower() and (c[0]=='0' or t_day=='Sun' ):  
+                par={'chat_id': chat_id, 'animation': ani[u], 'parse_mode': 'HTML'}
+                meth='sendAnimation'
+                res = requests.post(self.api_url + meth, par)
+        else:
+            par={'chat_id': chat_id, 'animation': 'CAACAgUAAxkBAAM7X_BN2xGcqwzbL19d3gu8RjbGIzQAAhYAA6ZAwSzL-hWf0besVx4E', 'parse_mode': 'HTML'}
+            meth='sendAnimation'
+            res = requests.post(self.api_url + meth, par)
+        params = {'chat_id': chat_id,'reply_to_message_id' : m_id, 'text': text, 'parse_mode': 'HTML'}
+        method = 'sendMessage'
+        resp = requests.post(self.api_url + method, params)
+        
+        return resp
+    def callbackquery(self,chat_id,m_id,data):
+      params={'chat_id': chat_id,'message_id': m_id}
+      met='editMessagetext'
+      if data=='1':
+        print('notifying')
+        par=notifying(chat_id,m_id)
+      elif data=='2' or data=='3':
+        par=nextnow(chat_id,m_id,data)
+      elif data=='4':
+        par=subquery(chat_id,m_id)
+      elif data=='5':
+        par=labquery(chat_id,m_id)
+      elif data=='cd' or data=='se' or data=='cns' or data=='ml' or data=='dip' or data=='erp' or data=='pt':
+        par=subject(chat_id,m_id,data)
+      elif data=='cdl' or data=='sel':
+        par=labsub(chat_id,m_id,data)
+      elif data=='6':
+        par=seminar(chat_id,m_id)
+      elif data=='0':
+        par=noti(chat_id,m_id)
+      responses=requests.post(self.api_url + met, par)
+      return responses
+    def send_pinned(self, chat_id,m_id,text):
+        met='sendchataction'
+        para={'chat_id':chat_id ,'action' : 'typing'}
+        respons=requests.post(self.api_url + met, para)
+        par={'chat_id': chat_id, 'animation': 'CAACAgUAAxkBAAIQLl994ZQ_yW7Qr0xLrpxPGBrMPm-9AAIRAAOmQMEsxAMuLenxHYgbBA', 'parse_mode': 'HTML'}
+        meth='sendAnimation'
+        res = requests.post(self.api_url + meth, par)
+        params = {'chat_id': chat_id,'reply_to_message_id': m_id, 'text': text, 'parse_mode': 'HTML'}
+        method = 'sendMessage'
+        resp = requests.post(self.api_url + method, params)
+        
+        return resp
+    def send_photo(self, chat_id,m_id, text) :
+        met='sendchataction'
+        para={'chat_id':chat_id ,'action' : 'upload_photo'}
+        respons=requests.post(self.api_url + met, para)
+        params = {'chat_id': chat_id,'reply_to_message_id':m_id, 'photo': text,'caption':'Time table for A-Batch','parse_mode': 'HTML'}
+        method = 'sendPhoto'
+        resp = requests.post(self.api_url + method, params)
+        return resp
+    def send_button(self,chat_id,m_id,text):
+         met='sendchataction'
+         para={'chat_id':chat_id ,'action' : 'typing'}
+         respons=requests.post(self.api_url + met, para)
+         par={'chat_id': chat_id, 'animation': 'CAACAgUAAxkBAAIQLl994ZQ_yW7Qr0xLrpxPGBrMPm-9AAIRAAOmQMEsxAMuLenxHYgbBA', 'parse_mode': 'HTML'}
+         meth='sendAnimation'
+         res = requests.post(self.api_url + meth, par)
+         key={'keyboard':[[{'text':'/tt'},{'text':'/ftt'},{'text':'/now'},{'text':'/next'}],[{'text':'/toc'},{'text':'/cg'},{'text':'/cn'}],
+      [{'text':'/mp'},{'text':'/wt'},{'text':'/mad'}],[{'text':'/cgl'},{'text':'/cnl'},{'text':'/mpl'}],[{'text':'/it'},{'text':'/pt'}],[{'text':'/help'},{'text':'/notify'}]]}
+         keyys=json.dumps(key)
+         params = {'chat_id': chat_id, 'text': text,'parse_mode':'HTML','reply_markup':keyys}
+         method = 'sendMessage'
+         resp = requests.post(self.api_url + method, params)
+         return resp
+
+    def get_first_update(self):
+        get_result = self.get_updates()
+
+        if len(get_result) > 0:
+            last_update = get_result[0]
+        else:
+            last_update = None
+
+        return last_update
+
+
+token = environ['token']
+#token = '1478009081:AAEl7qo6AZekEbxO-WFnLljcNG_Ik'
+niloner_bot = BotHandler(token)
+ID= [750862502,817947468]
+
+def main():
+    new_offset = 0
+    print('Launching the bot...')
+
+    while True:
+        
+        all_updates=niloner_bot.get_updates(new_offset)
+        
+        if len(all_updates) > 0:
+           for current_update in all_updates:
+              print(current_update)
+              first_update_id = current_update['update_id']
+              if 'callback_query' in current_update :
+                  print('call_back')
+                  first_update_id = current_update['update_id']
+                  if 'data' in current_update['callback_query']:
+                    data_r=current_update['callback_query']['data']
+                  m_id=current_update['callback_query']['message']['message_id']
+                  chat_id=current_update['callback_query']['message']['chat']['id']
+                  niloner_bot.callbackquery(chat_id,m_id,data_r)
+                  new_offset=first_update_id+1
+                  print(data_r,chat_id,m_id)
+              elif 'message' in current_update :
+                m_id = current_update['message']['message_id']
+                if 'text' not in current_update['message'] :
+                    first_chat_text='New member'
+                    #new_offset = first_update_id + 1
+                else:
+                  first_chat_text = current_update['message']['text']
+                first_chat_id = current_update['message']['chat']['id']
+                if 'first_name' in current_update['message']:
+                    first_chat_name = current_update['message']['chat']['first_name']
+                
+                elif 'from' in current_update['message']:
+                    first_chat_name = current_update['message']['from']['first_name']
+                else:
+                    first_chat_name = "unknown"
+                
+
+
+
+
+
+                if 'new_chat_member' in current_update['message']:
+                    first_chat_name = current_update['message']['new_chat_member']['first_name']
+                    niloner_bot.send_message(first_chat_id,m_id,'Welcome '+'<b><i>'+first_chat_name+'</i></b>'+'\nHope this group will help you.\nType /help for list of commands\n\nI am a bot created by @Renolin\n'+sp)
+                    new_offset = first_update_id + 1
+                elif 'left_chat_participant' in current_update['message'] :
+                   temp_name=current_update['message']['from']['first_name']
+                   name=current_update['message']['left_chat_participant']['first_name']
+                   rid=current_update['message']['left_chat_participant']['id']
+                   pid=current_update['message']['from']['id']
+                   if rid==pid :
+                         niloner_bot.send_message(first_chat_id,m_id,'<b><i>'+ name+'</i></b>'+' left the group chat.')
+                   else :
+                       niloner_bot.send_message(first_chat_id,m_id,'<b><i>'+name+'</i></b>'+' was removed by '+'<b><i>'+temp_name+'</i></b>')
+                   new_offset = first_update_id + 1
+                elif 'pinned_message' in current_update['message']:
+                        niloner_bot.send_pinned(first_chat_id,m_id,first_chat_name+' pinned a message')
+                        new_offset = first_update_id + 1
+
+                elif first_chat_text == 'Hi' or first_chat_text == 'hi':
+                  niloner_bot.send_pinned(first_chat_id,m_id, 'Hi '  +first_chat_name)
+                  new_offset = first_update_id + 1
+                
+                elif first_chat_text == '/notify' :
+                  niloner_bot.send_notify(first_chat_id,m_id, '<b>NOTIFICATION</b>\n\n'+'<i>'+notification()+'</i>')
+                  new_offset = first_update_id + 1
+                 
+                elif first_chat_text == '/start':
+                  niloner_bot.send_message(first_chat_id,m_id, 'Hi '  +'<b><i>' +first_chat_name+'</i></b>'+'\n Type /help for list of commands\n\n\n\nThis bot was created by @Renolin')
+                  new_offset = first_update_id + 1
+                
+                else :
+                  flag=1
+                  if first_chat_text == '/tt':
+                    flag=0
+                    niloner_bot.send_message(first_chat_id,m_id, table())
+                    new_offset = first_update_id + 1
+                  if first_chat_text == '/help':
+                      flag=0
+                      niloner_bot.send_help(first_chat_id)
+                      new_offset = first_update_id + 1
+                  if first_chat_text == '/now':
+                        flag=0
+                        niloner_bot.send_message(first_chat_id,m_id, check())
+                        new_offset = first_update_id + 1
+                  if first_chat_text == '/next':
+                          flag=0
+                          niloner_bot.send_message(first_chat_id,m_id, nextcl())
+                          new_offset = first_update_id + 1
+                  if first_chat_text == '/cd':
+                            flag=0
+                            niloner_bot.send_message(first_chat_id,m_id, '<b><u>Compiler Design </u></b>\n\n'+cd())
+                            new_offset = first_update_id + 1
+                                              
+                  if first_chat_id in ID and '/ch_cd'== first_chat_text[ :6]:
+                              flag=0
+                              h=first_chat_text[6:]
+                              change(h,1)
+                              niloner_bot.send_message(first_chat_id,m_id, '<b>Compiler Design </b> link updated \n\n'+temp[1])
+                              new_offset = first_update_id + 1
+                  if first_chat_text == '/se':
+                                flag=0
+                                niloner_bot.send_message(first_chat_id,m_id, '<b><u>Software Engineering</u></b>\n\n'+se())
+                                new_offset = first_update_id + 1
+                  if first_chat_id in ID and '/ch_se'== first_chat_text[ :6]:
+                                  flag=0
+                                  h=first_chat_text[6:]
+                                  change(h,2)
+                                  niloner_bot.send_message(first_chat_id,m_id, '<b>Software Engineering</b> link updated \n\n'+temp[2])
+                                  new_offset = first_update_id + 1
+                                                  
+                  if first_chat_text == '/cns':
+                                    flag=0
+                                    niloner_bot.send_message(first_chat_id,m_id, '<b><u>Cryptography and Network Security</u></b>\n\n'+cns())
+                                    new_offset = first_update_id + 1
+                  if first_chat_id in ID and '/ch_cns'== first_chat_text[:7]:
+                                      flag=0
+                                      h=first_chat_text[7:]
+                                      change(h,3)
+                                      niloner_bot.send_message(first_chat_id,m_id, '<b>Cryptography and Network Security</b> link updated\n\n'+temp[3])
+                                      new_offset = first_update_id + 1
+                  if first_chat_text == '/dip':
+                                        flag=0
+                                        niloner_bot.send_message(first_chat_id,m_id,'<b><u>Digital Image Processing</u></b>\n\n'+dip())
+                                        new_offset = first_update_id + 1
+                  if first_chat_id in ID and '/ch_dip'==first_chat_text[ :7]:
+                                          flag=0
+                                          h=first_chat_text[7:]
+                                          change(h,6)
+                                          niloner_bot.send_message(first_chat_id,m_id, '<b>Mobile app development</b> link updated\n'+temp[4])
+                                          new_offset = first_update_id + 1
+                  if first_chat_text == '/ml':
+                                            flag=0
+                                            niloner_bot.send_message(first_chat_id,m_id,'<b><u>Machine Learning</u></b>\n\n'+ml())
+                                            new_offset = first_update_id + 1
+                  if first_chat_id in ID and '/ch_ml'== first_chat_text[ :6]:
+                                  flag=0
+                                  h=first_chat_text[6:]
+                                  change(h,5)
+                                  niloner_bot.send_message(first_chat_id,m_id, '<b>Machine Learning</b> link updated \n\n'+temp[5])
+                                  new_offset = first_update_id + 1
+                  if first_chat_text == '/erp':
+                                              flag=0
+                                              niloner_bot.send_message(first_chat_id,m_id,'<b><u>Enterprise Resource Planning</u></b>\n\n'+erp())
+                                              new_offset = first_update_id + 1
+                                                              
+                  if first_chat_id in ID and '/ch_sat'== first_chat_text[:7]:
+                                                flag=0
+                                                h=first_chat_text[7: :9]
+                                                j=first_chat_text[8:]
+                                                l=changesat(h,j)
+                                                niloner_bot.send_message(first_chat_id,m_id, l)
+                                                new_offset = first_update_id + 1
+                  if first_chat_id in ID and '/ch_erp'== first_chat_text[:7]:
+                    flag=0
+                    h=first_chat_text[7:]
+                    change(h,6)
+                    niloner_bot.send_message(first_chat_id,m_id, '<b>Enterprise Resource Planning</b> link updated\n\n'+temp[6])
+                    new_offset = first_update_id + 1
+                  if first_chat_text == '/cdl':
+                      flag=0
+                      niloner_bot.send_message(first_chat_id,m_id,'<b><u>Computer Design LAB</u></b>\n\n'+cdlab())
+                      new_offset = first_update_id + 1
+                  if first_chat_id in ID and '/ch_lcd'== first_chat_text[ :7]:
+                        flag=0
+                        h=first_chat_text[7:]
+                        change(h,7)
+                        niloner_bot.send_message(first_chat_id,m_id, '<b>Compiler Design LAB</b> link updated\n\n'+temp[7])
+                        new_offset = first_update_id + 1
+                  if first_chat_text == '/sel':
+                          flag=0
+                          niloner_bot.send_message(first_chat_id,m_id,'<b><u>Software Engineering LAB</u></b>\n\n'+selab())
+                          new_offset = first_update_id + 1
+                                          
+                  if first_chat_id in ID and '/ch_lse' == first_chat_text[ :7]:
+                            flag=0
+                            h=first_chat_text[7:]
+                            change(h,8)
+                            niloner_bot.send_message(first_chat_id,m_id, '<b>Software Engineering LAB</b> link updated\n\n'+temp[8])
+                            new_offset = first_update_id + 1
+                                      
+                  """if first_chat_text == '/mpl':
+                              flag=0
+                              niloner_bot.send_message(first_chat_id,m_id,'<b><u>Microprocessor LAB</u></b>\n\n'+mplab())
+                              new_offset = first_update_id + 1
+                                              
+                  if first_chat_id in ID and '/ch_lmp' == first_chat_text[ :7]:
+                                flag=0
+                                h=first_chat_text[7:]
+                                change(h,9)
+                                niloner_bot.send_message(first_chat_id,m_id, '<b>Microprocessor LAB</b> link updated\n\n'+temp[9])
+                                new_offset = first_update_id + 1
+                                                
+                  if first_chat_text == '/it':
+                                  flag=0
+                                  niloner_bot.send_message(first_chat_id,m_id,'<b><u>Industrial training</u></b>\n\n'+it())
+                                  new_offset = first_update_id + 1
+                                                  
+                  if first_chat_id in ID and '/ch_it' == first_chat_text[ :6]:
+                                    flag=0
+                                    h=first_chat_text[6: ]
+                                    change( h,10 )
+                                    niloner_bot.send_message(first_chat_id,m_id, '<b>Industrial training </b>link updated\n\n'+temp[10])
+                                    new_offset = first_update_id + 1
+                                           """         
+                  if first_chat_text == '/pt':
+                                      flag=0
+                                      niloner_bot.send_message(first_chat_id,m_id,'<b><u>Placement and training</u></b>\n\n'+pt())
+                                      new_offset = first_update_id + 1
+                                                      
+                  if first_chat_id in ID and '/ch_pt' == first_chat_text[: 6]:
+                                        flag=0
+                                        h=first_chat_text[6:]
+                                        change(h,11)
+                                        niloner_bot.send_message(first_chat_id,m_id, '<b>Placement and training </b>link updated\n'+temp[11])
+                                        new_offset = first_update_id + 1
+                  if first_chat_text == '/ftt' :
+                                flag=0  
+                                niloner_bot.send_photo(first_chat_id,m_id, 'AgACAgUAAxkBAANhX_Bb5Tebi-hNa7yyfBOHOM17I6kAAvaqMRv0moFXXS_EiaakSzinRSRtdAADAQADAgADeQADUDICAAEeBA')
+                                new_offset = first_update_id + 1
+                  if '/ch_notify' in first_chat_text and first_chat_id in ID :
+                              flag=0
+                              h=first_chat_text[10: ]
+                              change_notify(h)
+                              niloner_bot.send_message(first_chat_id,m_id, 'Notification updated\n'+notification())
+                              new_offset = first_update_id + 1
+                  if flag==1 :
+                                          niloner_bot.send_message(first_chat_id,m_id, 'My brain does not have a response for that.')
+                                          new_offset = first_update_id + 1
+                  
+                
+                
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except KeyboardInterrupt:
+        exit()
