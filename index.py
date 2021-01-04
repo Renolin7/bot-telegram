@@ -270,8 +270,8 @@ def main():
                   if first_chat_id in ID and '/ch_dip'==first_chat_text[ :7]:
                                           flag=0
                                           h=first_chat_text[7:]
-                                          change(h,6)
-                                          niloner_bot.send_message(first_chat_id,m_id, '<b>Mobile app development</b> link updated\n'+temp[4])
+                                          change(h,4)
+                                          niloner_bot.send_message(first_chat_id,m_id, '<b>Digital Image Processing</b> link updated\n'+temp[4])
                                           new_offset = first_update_id + 1
                   if first_chat_text == '/ml':
                                             flag=0
