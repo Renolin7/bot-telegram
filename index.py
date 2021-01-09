@@ -54,7 +54,7 @@ class BotHandler:
         met='sendchataction'
         para={'chat_id':chat_id ,'action' : 'typing'}
         respons=requests.post(self.api_url + met, para)
-        if 'holiday' in text and (c[0]=='0' or t_day=='Sun' ):  
+        if 'holiday' in text.lower() and (c[0]=='0' or t_day=='Sun' ):  
                 par={'chat_id': chat_id, 'animation': ani[u], 'parse_mode': 'HTML'}
                 meth='sendAnimation'
                 res = requests.post(self.api_url + meth, par)
