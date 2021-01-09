@@ -43,6 +43,8 @@ def nextcl():
   y = day()
   if d()=='mon' or d()=='tue' or (c[0]=='1' and ( c[1]=='1' or c[1]=='2')) :
     kkk=0
+  elif d()=='Sat' or c[0]=='0':
+    kkk=2
   else :
     kkk=1
   #z = link()
@@ -115,6 +117,8 @@ def table():
   print(k)
   if d() == 'Mon' or d()=='Tue' or ( c[0]=='1' and ( c[1]=='1' or c[1]=='2')) :
     kkk=0
+  elif d()=='Sat' or c[0]=='0':
+    kkk=2
   else :
     kkk=1
   if g == '0' or c[0]=='0':
