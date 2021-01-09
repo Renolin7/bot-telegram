@@ -9,8 +9,10 @@ def change_notify(h):
    notify[0]=h
 def check():
   y = day()
-  if d()=='mon' or d()=='tue' or (c[0]=='1' and ( c[1]=='1' or c[1]=='2')) :
+  if d()=='Mon' or d()=='Tue' or (c[0]=='1' and ( c[1]=='1' or c[1]=='2')) :
     kkk=0
+  elif d()=='Sat' or c[0]=='0':
+    kkk=2
   else :
     kkk=1
   t = gettime()
@@ -123,6 +125,9 @@ def table():
     return('Todays classes are over !')
   elif kkk==0 :
     return("09:00 - 10:00   "+g[0]+"\n\n10:00 - 11:00   "+g[1]+"\n\n11:00 - 11:30   "+g[2]+"\n\n11:30 - 12:30   "+g[3]+"\n\n12:30 - 01:30   "+g[4]+"\n\n01:30 - 02:30   "+g[5]+"\n\n02:30 - 03:30   "+g[6]+"\n\n03:30 - 04:30   "+g[7]+"\n\n04:30 - 05:30   "+g[8])
-  """elif kkk==1 :
+  elif kkk==2 and c[0]=='0' :
+    return("Today is a holiday")
+  elif kkk==1 :
      return("09:00 - 10:00   "+g[0]+"\n\n10:00 - 11:00   "+g[1]+"\n\n11:00 - 11:30   "+g[2]+"\n\n11:30 - 12:30   "+g[3]+"\n\n12:30 - 01:30   "+g[4]+"\n\n01:30 - 02:30   "+g[5]+"\n\n02:30 - 03:30   "+g[6]+"\n\n03:30 - 04:30   "+g[7])
-"""
+  else :
+     return("Not yet updated !")
